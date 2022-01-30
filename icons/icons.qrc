@@ -1,0 +1,9 @@
+<RCC>
+  <qresource>
+    <file>317777-200.png</file>
+    <file>tick.png</file>
+  </qresource>
+  <qresource prefix="STYLESHEETDARK">
+    <file>style.qss</file>
+  </qresource>
+</RCC>

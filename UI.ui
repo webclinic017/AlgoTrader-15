@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1021</width>
+    <height>766</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="documentMode">
+   <bool>false</bool>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <property name="dockNestingEnabled">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="minimumSize">
+       <size>
+        <width>1021</width>
+        <height>711</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>13</pointsize>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>15</width>
+        <height>16</height>
+       </size>
+      </property>
+      <property name="elideMode">
+       <enum>Qt::ElideRight</enum>
+      </property>
+      <property name="usesScrollButtons">
+       <bool>false</bool>
+      </property>
+      <property name="documentMode">
+       <bool>true</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>false</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+      <property name="tabBarAutoHide">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="dashboardTab">
+       <attribute name="title">
+        <string>Dashboard</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_6">
+        <item row="2" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_2"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="QSplitter" name="splitter_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <widget class="QFrame" name="frame_2">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_7">
+            <item row="1" column="0">
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QPushButton" name="startButton">
+                <property name="text">
+                 <string>START</string>
+                </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="editButton">
+                <property name="text">
+                 <string>EDIT</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="createButton">
+                <property name="text">
+                 <string>CREATE</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="stopButton">
+                <property name="text">
+                 <string>STOP</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="stopAllButton">
+                <property name="text">
+                 <string>STOP ALL</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pauseButton">
+                <property name="text">
+                 <string>PAUSE</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="0">
+             <widget class="QSplitter" name="splitter_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <widget class="QTreeWidget" name="strategyBox">
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <column>
+                <property name="text">
+                 <string>STRATEGY</string>
+                </property>
+               </column>
+               <item>
+                <property name="text">
+                 <string>MASQ</string>
+                </property>
+                <property name="checkState">
+                 <enum>Unchecked</enum>
+                </property>
+               </item>
+              </widget>
+              <widget class="QWidget" name="layoutWidget">
+               <layout class="QVBoxLayout" name="verticalLayout">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout">
+                  <item>
+                   <widget class="QLabel" name="statusLabel">
+                    <property name="text">
+                     <string>Strategy: MASQ</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_7">
+                    <property name="text">
+                     <string>Total PNL : 1414</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_8">
+                    <property name="text">
+                     <string>Mode : LIVE</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QTreeWidget" name="runningStrategyBox">
+                  <property name="palette">
+                   <palette>
+                    <active>
+                     <colorrole role="Button">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>230</red>
+                        <green>230</green>
+                        <blue>230</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Light">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>230</red>
+                        <green>230</green>
+                        <blue>230</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </active>
+                    <inactive>
+                     <colorrole role="Button">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>230</red>
+                        <green>230</green>
+                        <blue>230</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Light">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>230</red>
+                        <green>230</green>
+                        <blue>230</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </inactive>
+                    <disabled>
+                     <colorrole role="Button">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>230</red>
+                        <green>230</green>
+                        <blue>230</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                     <colorrole role="Light">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>230</red>
+                        <green>230</green>
+                        <blue>230</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </disabled>
+                   </palette>
+                  </property>
+                  <column>
+                   <property name="text">
+                    <string>ID</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>STATUS</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>SYMBOL</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>QUANTITY</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>START</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>END</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>EMA1</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>EMA2</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>RR</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>TSL</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>POSITION</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>PNL</string>
+                   </property>
+                  </column>
+                  <item>
+                   <property name="text">
+                    <string>1</string>
+                   </property>
+                   <property name="checkState">
+                    <enum>Unchecked</enum>
+                   </property>
+                   <property name="text">
+                    <string>RUNNING</string>
+                   </property>
+                   <property name="text">
+                    <string>NQ</string>
+                   </property>
+                   <property name="text">
+                    <string>2</string>
+                   </property>
+                   <property name="text">
+                    <string>12:00</string>
+                   </property>
+                   <property name="text">
+                    <string>19:00</string>
+                   </property>
+                   <property name="text">
+                    <string>11034.5</string>
+                   </property>
+                   <property name="text">
+                    <string>11045.76</string>
+                   </property>
+                   <property name="text">
+                    <string>2.04</string>
+                   </property>
+                   <property name="text">
+                    <string>11098.6</string>
+                   </property>
+                   <property name="text">
+                    <string>2</string>
+                   </property>
+                   <property name="text">
+                    <string>1341</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QSplitter" name="splitter">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <widget class="QTabWidget" name="brokerInformation">
+            <property name="currentIndex">
+             <number>2</number>
+            </property>
+            <widget class="QWidget" name="Orders">
+             <attribute name="title">
+              <string>Orders</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="0" column="0">
+               <widget class="QTreeWidget" name="ordersDisplay">
+                <property name="dragEnabled">
+                 <bool>true</bool>
+                </property>
+                <column>
+                 <property name="text">
+                  <string>TIME</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>SYMBOL</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>SIDE</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>STATUS</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>PRICE</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>QTY</string>
+                 </property>
+                </column>
+                <item>
+                 <property name="text">
+                  <string>12:50:00</string>
+                 </property>
+                 <property name="text">
+                  <string>NQ</string>
+                 </property>
+                 <property name="text">
+                  <string>BUY</string>
+                 </property>
+                 <property name="text">
+                  <string>FILLED</string>
+                 </property>
+                 <property name="text">
+                  <string>10145.6</string>
+                 </property>
+                 <property name="text">
+                  <string>2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>12:55:00</string>
+                 </property>
+                 <property name="text">
+                  <string>CL</string>
+                 </property>
+                 <property name="text">
+                  <string>SELL</string>
+                 </property>
+                 <property name="text">
+                  <string>FILLED</string>
+                 </property>
+                 <property name="text">
+                  <string>78</string>
+                 </property>
+                 <property name="text">
+                  <string>100</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="tab_2">
+             <attribute name="title">
+              <string>Trades</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_3">
+              <item row="0" column="0">
+               <widget class="QTreeWidget" name="tradesDisplay">
+                <column>
+                 <property name="text">
+                  <string>TIME</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>SYMBOL</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>SIDE</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>STATUS</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>PRICE</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>QTY</string>
+                 </property>
+                </column>
+                <item>
+                 <property name="text">
+                  <string>12:50:00</string>
+                 </property>
+                 <property name="text">
+                  <string>NQ</string>
+                 </property>
+                 <property name="text">
+                  <string>BUY</string>
+                 </property>
+                 <property name="text">
+                  <string>FILLED</string>
+                 </property>
+                 <property name="text">
+                  <string>10145.6</string>
+                 </property>
+                 <property name="text">
+                  <string>2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>12:55:00</string>
+                 </property>
+                 <property name="text">
+                  <string>CL</string>
+                 </property>
+                 <property name="text">
+                  <string>SELL</string>
+                 </property>
+                 <property name="text">
+                  <string>FILLED</string>
+                 </property>
+                 <property name="text">
+                  <string>78</string>
+                 </property>
+                 <property name="text">
+                  <string>100</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="tab_4">
+             <attribute name="title">
+              <string>Positions</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_9">
+              <item row="0" column="0">
+               <widget class="QTreeWidget" name="positionsDisplay">
+                <column>
+                 <property name="text">
+                  <string>SYMBOL</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>POSITION</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>PRICE</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>QTY</string>
+                 </property>
+                </column>
+                <item>
+                 <property name="text">
+                  <string>NQ</string>
+                 </property>
+                 <property name="text">
+                  <string>2</string>
+                 </property>
+                 <property name="text">
+                  <string>10145.6</string>
+                 </property>
+                 <property name="text">
+                  <string>2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>CL</string>
+                 </property>
+                 <property name="text">
+                  <string>0</string>
+                 </property>
+                 <property name="text">
+                  <string>78</string>
+                 </property>
+                 <property name="text">
+                  <string>100</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+           <widget class="QTabWidget" name="brokerMessageDisplay">
+            <property name="currentIndex">
+             <number>0</number>
+            </property>
+            <widget class="QWidget" name="tab">
+             <attribute name="title">
+              <string>System Messages</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_4">
+              <item row="0" column="0">
+               <widget class="QTreeWidget" name="userMessageDisplay">
+                <property name="dragEnabled">
+                 <bool>true</bool>
+                </property>
+                <property name="uniformRowHeights">
+                 <bool>false</bool>
+                </property>
+                <attribute name="headerHighlightSections">
+                 <bool>false</bool>
+                </attribute>
+                <column>
+                 <property name="text">
+                  <string>TYPE</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>TIME</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>MESSAGE</string>
+                 </property>
+                </column>
+                <item>
+                 <property name="text">
+                  <string>INFO</string>
+                 </property>
+                 <property name="text">
+                  <string>12:34:00</string>
+                 </property>
+                 <property name="text">
+                  <string>BROKER ID : DL3040 CONNECTED</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>INFO</string>
+                 </property>
+                 <property name="text">
+                  <string>13:04:00</string>
+                 </property>
+                 <property name="text">
+                  <string>STRATEGY MASQ CROSSOVER STARTED</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="tab_3">
+             <attribute name="title">
+              <string>Broker Messages</string>
+             </attribute>
+             <layout class="QGridLayout" name="gridLayout_5">
+              <item row="0" column="0">
+               <widget class="QTreeWidget" name="brokerMessagesDisplay">
+                <column>
+                 <property name="text">
+                  <string>TYPE</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>TIME</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>MESSAGE</string>
+                 </property>
+                </column>
+                <item>
+                 <property name="text">
+                  <string>INFO</string>
+                 </property>
+                 <property name="text">
+                  <string>12:40:001</string>
+                 </property>
+                 <property name="text">
+                  <string>PLACED BUY MKT NQ ORDER QTY 100 FILLED AT PRICE  11000</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>INFO</string>
+                 </property>
+                 <property name="text">
+                  <string>13:01:00</string>
+                 </property>
+                 <property name="text">
+                  <string>MARKET DATA DISCONNECTED</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>INFO</string>
+                 </property>
+                 <property name="text">
+                  <string>14:00:00</string>
+                 </property>
+                 <property name="text">
+                  <string>MARKET DATA CONNECTED</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1021</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionSettings"/>
+    <addaction name="actionBroker_Configuration"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionBroker_Configuration">
+   <property name="text">
+    <string>Broker Configuration</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="icons/icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

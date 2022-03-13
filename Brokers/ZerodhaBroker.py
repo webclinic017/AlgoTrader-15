@@ -9,9 +9,9 @@ import logging
 import csv
 from Managers.InstrumentManager import InstrumentManager
 from Managers.MarketDataManager import MarketDataManager
-from core_classes.Broker import Broker
+from Core.Broker import Broker
 from Models.Models import Instrument, Tick
-
+from MessageClasses import Messages
 
 class ZerodhaBroker(Broker):
 
@@ -43,14 +43,12 @@ class ZerodhaBroker(Broker):
         self.subscribe_cache[instrument.instrument_token] = instrument.tradingsymbol
         self.tickerHandler.subscribe([int(instrument.instrument_token)])
 
-
     def on_connect(self, ws, response):
         self.tickerHandler = ws
         pass
 
     def on_close(broker, ws, code, reason):
         ws.stop()
-
 
     def __readInstrumentsfromCsv(self):
         with open(os.getcwd()+"/BrokerCache/instruments.csv", "r") as f:
@@ -59,7 +57,6 @@ class ZerodhaBroker(Broker):
         if (len(a) <= 0):
             raise Exception("NOT ENOUGH INSTRUMENTS")
         return a
-
 
     def connect(self):
         from selenium import webdriver
@@ -70,7 +67,6 @@ class ZerodhaBroker(Broker):
             self.kite.set_access_token(self.__read_accesstocken())
             self.kite.trades()
         except:
-            print(f"api key is {self.apikey}")
             self.kite = KiteConnect(api_key=self.apikey)
             driver = webdriver.Chrome()
             driver.get(self.kite.login_url())
@@ -100,7 +96,10 @@ class ZerodhaBroker(Broker):
         self.kws.on_order_update = self.__tickerOnOrderUpdate
         self.kws.on_noreconnect = self.__tickerOnNoReconnect
         self.kws.connect(threaded=True)
-
+        messages = Messages.getInstance()
+        messages.trades.addAll(self.get_trades())
+        messages.positions.addAll(self.get_positions())
+        messages.orders.addAll(self.get_orders())
 
     def load_instruments(self):
         self.__instrument_store()
@@ -114,6 +113,7 @@ class ZerodhaBroker(Broker):
         self.totp_access_key = config['totp_access_key']
 
     def get_orders(self):
+        print("get orders called")
         return self.kite.orders()
 
     def get_trades(self):
@@ -125,8 +125,8 @@ class ZerodhaBroker(Broker):
     def get_holdings(self):
         return self.kite.holdings()
 
-    def get_historical_data(self, instrument, fromdate, to, interval):
-        return self.kite.historical_data(int(self.findInstrument(instrument).instrument_token), fromdate, to, interval,
+    def get_historical_data(self, instrument: Instrument, from_date, to_date, interval):
+        return self.kite.historical_data(int(instrument.instrument_token), from_date, to_date, interval,
                                          False, False)
 
     def __read_accesstocken(self):
@@ -162,8 +162,8 @@ class ZerodhaBroker(Broker):
 
     def __tickerOnTicks(self, ws, ticks):
         for tick in ticks:
-            tick_to_push=Tick(
-                symbol=self.subscribe_cache[str(tick["instrument_token"])],
+            tick_to_push = Tick(
+                symbol=self.subscribe_cache[tick["instrument_token"]],
                 volume=tick["volume"],
                 ltp=tick["last_price"],
                 buy_quantity=tick["buy_quantity"],
@@ -186,12 +186,19 @@ class ZerodhaBroker(Broker):
     def __instrument_store(self):
         try:
             instruments = self.__readInstrumentsfromCsv()
+            raise Exception("fail")
         except:
             instruments = self.kite.instruments(exchange=self.kite.EXCHANGE_NSE)
+            nfo_instruments = self.kite.instruments(exchange=self.kite.EXCHANGE_NFO)
+            instruments.extend(nfo_instruments)
+            # instruments.append(nfo_instruments)
             self.__writeDictToCSV(os.getcwd()+"/BrokerCache/instruments.csv", instruments)
         for instrument in instruments:
             self.push_instrument(Instrument(*instrument.values()))
         return instruments
+
+    def get_connection_object(self):
+        return self.kite
 
     def __init__(self,config):
         self.initialize(config)

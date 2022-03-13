@@ -12,6 +12,7 @@ class Manager():
         BrokerManager.get_instance()
         MarketDataManager.get_instance().initialize_datasource(BrokerManager.get_instance().get_broker())
         OrderManager.get_instance()
+
 print(__name__)
 if __name__=="__main__":
     print("manager called")

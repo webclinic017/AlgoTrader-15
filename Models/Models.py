@@ -49,6 +49,9 @@ class Instrument():
             self.segment = symbolfound.segment
             self.exchange = symbolfound.exchange
 
+    def __str__(self):
+        return self.tradingsymbol
+
 @dataclass(init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False)
 class Order():
     placed_by:Any=None

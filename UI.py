@@ -223,12 +223,15 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionBroker_Configuration)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuView.menuAction())
-
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
         self.brokerInformation.setCurrentIndex(2)
         self.brokerMessageDisplay.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    @QtCore.pyqtSlot(QtWidgets.QTreeWidgetItem, int)
+    def onItemClicked(self, it, col):
+        print(it, col, it.text(col))
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -247,18 +250,6 @@ class Ui_MainWindow(object):
         self.statusLabel.setText(_translate("MainWindow", "Strategy: MASQ"))
         self.label_7.setText(_translate("MainWindow", "Total PNL : 1414"))
         self.label_8.setText(_translate("MainWindow", "Mode : LIVE"))
-        self.runningStrategyBox.headerItem().setText(0, _translate("MainWindow", "ID"))
-        self.runningStrategyBox.headerItem().setText(1, _translate("MainWindow", "STATUS"))
-        self.runningStrategyBox.headerItem().setText(2, _translate("MainWindow", "SYMBOL"))
-        self.runningStrategyBox.headerItem().setText(3, _translate("MainWindow", "QUANTITY"))
-        self.runningStrategyBox.headerItem().setText(4, _translate("MainWindow", "START"))
-        self.runningStrategyBox.headerItem().setText(5, _translate("MainWindow", "END"))
-        self.runningStrategyBox.headerItem().setText(6, _translate("MainWindow", "EMA1"))
-        self.runningStrategyBox.headerItem().setText(7, _translate("MainWindow", "EMA2"))
-        self.runningStrategyBox.headerItem().setText(8, _translate("MainWindow", "RR"))
-        self.runningStrategyBox.headerItem().setText(9, _translate("MainWindow", "TSL"))
-        self.runningStrategyBox.headerItem().setText(10, _translate("MainWindow", "POSITION"))
-        self.runningStrategyBox.headerItem().setText(11, _translate("MainWindow", "PNL"))
         __sortingEnabled = self.runningStrategyBox.isSortingEnabled()
         self.runningStrategyBox.setSortingEnabled(False)
         self.runningStrategyBox.topLevelItem(0).setText(0, _translate("MainWindow", "1"))
@@ -368,8 +359,6 @@ class Ui_MainWindow(object):
         self.menuView.setTitle(_translate("MainWindow", "View"))
         self.actionSettings.setText(_translate("MainWindow", "Settings"))
         self.actionBroker_Configuration.setText(_translate("MainWindow", "Broker Configuration"))
-import icons_rc
-
 
 if __name__ == "__main__":
     import sys

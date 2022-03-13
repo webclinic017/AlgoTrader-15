@@ -3,12 +3,13 @@ import time
 import datetime
 import schedule
 # from Managers.BrokerManager import BrokerManager
+from Core.Enums import StrategyState
 from Managers.InstrumentManager import InstrumentManager
 from Managers.MarketDataManager import MarketDataManager
 from Managers.OrderManager import OrderManager
-from MessageClasses import Messages
+# from MessageClasses import Messages
 from Models.Models import Instrument, Order
-from core_classes.Strategy import Strategy
+from Core.Strategy import Strategy
 import functools
 import time
 
@@ -27,22 +28,25 @@ def timer(func):
 class DemoStrategy(Strategy):
 
     def define_inputs(self):
-        return {
+        inputs = {
             "x":5,
-            "y":14
+            "y":14,
         }
+        return inputs
+
+    def define_attributes(self):
+        print("demo strategy define inputs called")
+        self.attributes = self.attributes + ['inputs', 'x', 'y']
 
     def on_create(self,inputs):
-        self.x=inputs["x"]
-        pass
-
-    def on_start(self):
-        print("Start function called")
-        pass
+        self.x = inputs["x"]
+        self.y = inputs["y"]
+        print(f"on create for strategy demo called")
 
     def every_second(self):
         print("every second called portfolio "+str(self.portfolio_id)+"  "+str(datetime.datetime.now()))
-        Messages.getInstance().usermessages.info("every second called portfolio "+str(self.portfolio_id)+"  "+str(datetime.datetime.now()))
+        self.messages.usermessages.info("every second called portfolio "+str(self.portfolio_id)+"  "+str(datetime.datetime.now()))
+        print(self.broker.get_connection_object())
         # order=Order(order_id=1232,status=self.state)
         # Messages.getInstance().orders.addOrder(order)
 
@@ -51,17 +55,10 @@ class DemoStrategy(Strategy):
 
     def schedule_tasks(self):
         print(f"SCHEDULE TASKS CALLED {self.portfolio_id}")
-        # t=threading.Timer(int(self.x),self.every_second).start()
-        # t.
         schedule.every(int(self.x)).seconds.do(self.every_second)
-        # self.subscribe(Instrument(symbol="RELIANCE"),self.on_ticks)
+        self.subscribe(Instrument(symbol="RELIANCE"), self.on_ticks)
 
-if __name__=="__main__":
-    InstrumentManager.get_instance()
-    # BrokerManager.get_instance()
-    time.sleep(0.5)
-    MarketDataManager.get_instance()
-    OrderManager.get_instance()
-    strategy = DemoStrategy()
-    # strategy.main()
-    # strategy.on_create()
+    def stop(self):
+        super().stop()
+        print("stop called")
+

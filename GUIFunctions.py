@@ -1,4 +1,6 @@
 from PyQt5 import QtCore, QtWidgets
+
+from Managers.StrategyManager import StrategyManager
 from MessageClasses import Messages
 from UIElements.StrategyInputs import StrategyInputBox
 import os
@@ -7,21 +9,39 @@ from config import strategies
 class GUIFunctions():
 
     def add_update_order(self,order):
+        self.populateRunningStrategies()
         root = self.GUI.ordersDisplay.invisibleRootItem()
         child_count = root.childCount()
         for i in range(child_count):
             item = root.child(i)
             order_id = item.text(0)
-            if(str(order_id) == str(order["order_id"])):
-                keys=order.keys()
+            if str(order_id) == str(order["order_id"]):
+                keys = order.keys()
                 for j in range(0,len(keys)):
                     item.setText(j, str(order[keys[j]]))
                 return
-        if(child_count==0):
+        if child_count==0:
             self.GUI.ordersDisplay.setHeaderLabels(list(order.keys()))
         item = QtWidgets.QTreeWidgetItem(self.GUI.ordersDisplay)
         for j in range(0, len(list(order.keys()))):
             item.setText(j, str(order[list(order.keys())[j]]))
+
+    def add_update_running_strategy(self,running_strategy):
+        root = self.GUI.runningStrategyBox.invisibleRootItem()
+        child_count = root.childCount()
+        for i in range(child_count):
+            item = root.child(i)
+            portfolio_id = item.text(0)
+            if str(portfolio_id) == str(running_strategy["portfolio_id"]):
+                keys = list(running_strategy.keys())
+                for j in range(0, len(keys)):
+                    item.setText(j, str(running_strategy[keys[j]]))
+                return
+        if child_count == 0:
+            self.GUI.runningStrategyBox.setHeaderLabels(list(running_strategy.keys()))
+        item = QtWidgets.QTreeWidgetItem(self.GUI.runningStrategyBox)
+        for j in range(0, len(list(running_strategy.keys()))):
+            item.setText(j, str(running_strategy[list(running_strategy.keys())[j]]))
 
     def add_user_message(self,message):
         item = QtWidgets.QTreeWidgetItem(self.GUI.userMessageDisplay)
@@ -34,7 +54,7 @@ class GUIFunctions():
             item.setText(j, str(message[list(message.keys())[j]]))
 
     def populateUserMessages(self):
-        self.GUI.userMessageDisplay.clear();
+        self.GUI.userMessageDisplay.clear()
         usermessages = Messages.getInstance().usermessages.getMessages()
         if (len(usermessages) != 0):
             headers = list(usermessages[0].keys())
@@ -47,7 +67,7 @@ class GUIFunctions():
 
 
     def populateBrokerMessages(self):
-        self.GUI.brokerMessagesDisplay.clear();
+        self.GUI.brokerMessagesDisplay.clear()
         brokermessages = Messages.getInstance().brokermessages.getMessages()
         if (len(brokermessages) != 0):
             headers = list(brokermessages[0].keys())
@@ -95,12 +115,29 @@ class GUIFunctions():
     def populateStrategies(self):
         self.GUI.strategyBox.clear()
         self.GUI.strategyBox.setHeaderLabels(["Strategy"])
-        keys=strategies.keys()
+        keys = strategies.keys()
         print(keys)
         for i in range (0,len(keys)):
-            item=QtWidgets.QTreeWidgetItem(self.GUI.strategyBox)
+            item = QtWidgets.QTreeWidgetItem(self.GUI.strategyBox)
             item.setText(0,list(keys)[i])
 
+    def populateRunningStrategies(self):
+        root = self.GUI.strategyBox.invisibleRootItem()
+        child_count = root.childCount()
+        print("populateRunningStrategies")
+        none_checked=True
+        for i in range(child_count):
+            item = root.child(i)
+            checked = item.isSelected()
+            strategy = item.text(0)
+            strategy_to_execute = strategies[strategy]
+            if checked:
+                none_checked = False
+                print(strategy_to_execute.attributes)
+                self.GUI.runningStrategyBox.setHeaderLabels(strategy_to_execute.attributes)
+        if none_checked:
+            print(list(strategies.values())[0].attributes)
+            self.GUI.runningStrategyBox.setHeaderLabels(list(strategies.values())[0].attributes)
 
     def startButtonClicked(self):
         print("start button clicked")
@@ -108,16 +145,16 @@ class GUIFunctions():
         child_count = root.childCount()
         for i in range(child_count):
             item = root.child(i)
-            checked=item.isSelected()
+            checked = item.isSelected()
             strategy = item.text(0)
             strategy_to_execute = strategies[strategy]
             print(strategy_to_execute)
-            if(checked):
+            if checked:
                 Dialog = QtWidgets.QDialog()
                 ui = StrategyInputBox()
                 strategy_to_execute = strategy_to_execute()
                 ui.setupUi(Dialog,strategy_to_execute)
-                inputs=strategy_to_execute.define_inputs()
+                inputs = strategy_to_execute.define_inputs()
                 for input, value in inputs.items():
                     ui.addAttr(input, value)
                 Dialog.exec()
@@ -133,6 +170,14 @@ class GUIFunctions():
         print("EDIT BUTTON CLICKED")
 
     def stopButtonClicked(self):
+        root = self.GUI.runningStrategyBox.invisibleRootItem()
+        child_count = root.childCount()
+        for i in range(child_count):
+            item = root.child(i)
+            checked = item.isSelected()
+            portfolio_id = item.text(0)
+            StrategyManager.get_instance().stop_strategy(portfolio_id=portfolio_id)
+
         print("STOP BUTTON CLICKED")
 
     def pauseButtonClicked(self):
@@ -141,6 +186,12 @@ class GUIFunctions():
     def stopAllButtonClicked(self):
         print("STOP ALL BUTTON CLICKED")
 
+    def refreshRunningStrategies(self):
+        self.populateRunningStrategies()
+
+    def refreshOrders(self):
+        pass
+
     def connect_components(self):
         self.GUI.startButton.clicked.connect(self.startButtonClicked)
         self.GUI.createButton.clicked.connect(self.createButtonClicked)
@@ -148,6 +199,8 @@ class GUIFunctions():
         self.GUI.stopButton.clicked.connect(self.stopButtonClicked)
         self.GUI.stopAllButton.clicked.connect(self.stopAllButtonClicked)
         self.GUI.pauseButton.clicked.connect(self.pauseButtonClicked)
+        self.GUI.strategyBox.clicked.connect(self.refreshRunningStrategies)
+        self.GUI.ordersDisplay.clicked.connect(self.refreshOrders)
 
     def executeInitialFunctions(self,GUI=None):
         self.GUI=GUI
@@ -157,6 +210,7 @@ class GUIFunctions():
         self.populateBrokerMessages()
         self.populateOrders()
         self.populateStrategies()
+        self.populateRunningStrategies()
         self.connect_components()
 
     __instance = None

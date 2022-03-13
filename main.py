@@ -7,7 +7,6 @@ from Managers.OrderManager import OrderManager
 from Strategies.DemoStrategy import DemoStrategy
 from UIElements.UIFirst import Ui_MainWindow
 from PyQt5 import QtWidgets
-import qdarkstyle
 from MessageClasses import Messages
 import sys
 
@@ -23,7 +22,7 @@ class Main():
         sys.exit(app.exec_())
 
     def __init__(self):
-        self.messages = Messages.getInstance();
+        self.messages = Messages.getInstance()
         # self.messages.trades.addAll(self.broker.get_trades())
         # self.messages.positions.addAll(self.broker.get_positions())
         # self.messages.brokermessages.info("FIRST MESSAGE")

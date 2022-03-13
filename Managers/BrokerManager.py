@@ -1,22 +1,28 @@
 from Brokers.PaperTrading import PaperTradingBroker
 from Brokers.ZerodhaBroker import ZerodhaBroker
-from config import broker
+from config import  brokers
+
 
 class BrokerManager():
 
-    __brokers = { }
+    alias_brokers = { }
     __datasource = None
 
-    def get_broker(self):
+    def get_broker(self, broker_alias):
+        return self.alias_brokers[broker_alias]
+
+    def get_data_broker(self):
         return self.__datasource
 
     def __load_brokers_from_config(self):
+        for broker in brokers:
             if(broker["broker"]=="ZERODHA"):
-                self.__brokers[broker["broker_alias"]]=ZerodhaBroker(broker["config"])
-                self.__brokers[broker["broker_alias"]].connect()
+                self.alias_brokers[broker["broker_alias"]]=ZerodhaBroker(broker["config"])
+                self.alias_brokers[broker["broker_alias"]].connect()
             elif(broker["broker"]=="PAPER"):
-                self.__brokers[broker["broker_alias"]]=PaperTradingBroker(broker["config"])
-            self.__datasource=self.__brokers[broker["broker_alias"]]
+                self.alias_brokers[broker["broker_alias"]]=PaperTradingBroker(broker["config"])
+            if broker["dataSource"]:
+                self.__datasource=self.alias_brokers[broker["broker_alias"]]
     __instance = None
 
     @staticmethod
@@ -32,7 +38,7 @@ class BrokerManager():
             BrokerManager.__instance = self
         self.__load_brokers_from_config()
         self.__datasource.load_instruments()
-        print(len(self.__brokers))
+
 
 if __name__=="__main__":
     BrokerManager.get_instance()

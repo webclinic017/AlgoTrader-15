@@ -1,8 +1,7 @@
-from Strategies.Choppy import Choppy
 from Strategies.DemoStrategy import DemoStrategy
 
-data_source = "viral"
-brokers = [{
+brokers = [
+    {
             "broker_alias": "viral",
             "broker": "ZERODHA",
             "config":{
@@ -14,17 +13,18 @@ brokers = [{
                 "totp_access_key": "UXD562SLG66TEGX7OTQ7YLFJILH5V5FG"
             },
             "dataSource": True
-        }]
+        }
+]
 
 strategies =  {
             "DemoStrategy":DemoStrategy,
             # "Choppy": Choppy
 }
-
-zerodhaconfigurations = {
-    "apikey": "zcp3cclegx91hff7",
-    "apisecret": "dl2si4dfxddj3t3fwk8zhd7xl0itl5k9",
-    "userid": "XB5720",
-    "password": "Chiadi98@&",
-    "pin": "141014"
-}
+#
+# zerodhaconfigurations = {
+#     "apikey": "zcp3cclegx91hff7",
+#     "apisecret": "dl2si4dfxddj3t3fwk8zhd7xl0itl5k9",
+#     "userid": "XB5720",
+#     "password": "Chiadi98@&",
+#     "pin": "141014"
+# }
